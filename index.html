@@ -3,298 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNVE ARTICAL</title>
+    <title>星光文苑 - 作文分享介绍页</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            font-family: "Microsoft YaHei", "PingFang SC", serif;
         }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(to bottom, #120b30 0%, #3b2066 50%, #5e3f8c 100%);
+            /* 多层蓝紫渐变夜空，层次拉满 */
+            background: linear-gradient(180deg, 
+                #0a0620 0%, 
+                #1b1045 25%, 
+                #352070 55%, 
+                #5a3d99 80%, 
+                #7b5fc2 100%);
             overflow-x: hidden;
             position: relative;
-            padding: 20px 15px;
         }
 
+        /* 漫天星光 多层大小+快慢闪烁 */
         .star {
             position: absolute;
-            background: #fff;
+            background: #ffffff;
             border-radius: 50%;
-            animation: twinkle 3s infinite alternate ease-in-out;
-        }
-        @keyframes twinkle {
-            0% { opacity: 0.2; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.1); }
+            box-shadow: 0 0 6px #fff, 0 0 12px #e8d8ff;
+            animation: twinkle ease-in-out infinite;
         }
 
-        .forest {
+        @keyframes twinkle {
+            0% { opacity: 0.15; transform: scale(0.7); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.2; transform: scale(0.7); }
+        }
+
+        /* 远景第一层：朦胧远山深林 */
+        .hill-far {
+            position: fixed;
+            bottom: 0;
+            left: -10%;
+            width: 120%;
+            height: 280px;
+            background: radial-gradient(ellipse at center,
+                #1f4b1f 0%,
+                #153315 60%,
+                #0e240e 100%);
+            border-radius: 50% 50% 0 0;
+            z-index: 2;
+            filter: blur(8px);
+            opacity: 0.85;
+        }
+
+        /* 远景第二层：茂密近林植被 */
+        .forest-main {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 200px;
-            background: linear-gradient(to top, #103810, #245c24, #3a7d3a);
-            border-radius: 50% 50% 0 0;
-            z-index: 1;
+            height: 220px;
+            background: linear-gradient(to top,
+                #0b1f0b 0%,
+                #235823 40%,
+                #3a7c3a 70%,
+                #53a853 100%);
+            border-radius: 60% 60% 0 0;
+            z-index: 3;
         }
 
-        .nav {
+        /* 地面柔缓草坪 */
+        .grass-ground {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to top, #2d6b2d, #4a9c4a);
+            z-index: 4;
+        }
+
+        /* 文章介绍主卡片 */
+        .article-wrap {
             position: relative;
             z-index: 10;
-            max-width: 900px;
-            margin: 0 auto 30px;
-            text-align: center;
+            max-width: 920px;
+            margin: 60px auto;
+            padding: 50px 45px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(20, 10, 50, 0.35);
+            backdrop-filter: blur(12px);
         }
-        .nav h1 {
-            color: #fff;
-            font-size: 36px;
+
+        .article-title {
+            font-size: 38px;
+            color: #2c1b54;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(123, 95, 194, 0.2);
+        }
+
+        .article-info {
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #d8cff0;
+        }
+
+        .article-content {
+            font-size: 19px;
+            line-height: 2.1;
+            color: #2b2b2b;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        /* 顶部标语 */
+        .top-slogan {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding-top: 40px;
+            color: #f0eaff;
+            font-size: 22px;
             letter-spacing: 3px;
-            text-shadow: 0 0 15px #b89cff;
-            margin-bottom: 20px;
-        }
-        .nav-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            margin: 0 10px;
-            background: rgba(255,255,255,0.15);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 16px;
-            backdrop-filter: blur(6px);
-            transition: all 0.3s;
-        }
-        .nav-btn:hover {
-            background: rgba(184, 156, 255, 0.4);
-            box-shadow: 0 0 12px #b89cff;
-        }
-
-        .box {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            margin: 30px auto;
-            background: rgba(255,255,255,0.93);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
-            backdrop-filter: blur(10px);
-            display: none;
-        }
-        .box.active {
-            display: block;
-        }
-        .box h3 {
-            color: #4b2a7c;
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 14px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
-        }
-        textarea {
-            min-height: 180px;
-            resize: vertical;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #5e3f8c, #805ad5);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .submit-btn:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 10px #805ad5;
-        }
-
-        .essay-item {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            border-radius: 8px;
-            transition: 0.2s;
+            text-shadow: 0 0 15px #b89eff;
         }
     </style>
 </head>
-
 <body>
-    <div class="stars-container"></div>
-    <div class="forest"></div>
+    <!-- 星空容器 -->
+    <div class="star-container"></div>
 
-    <div class="nav">
-        <h1>星光作文分享站</h1>
-        <a href="javascript:showBox('list')" class="nav-btn">作文浏览</a>
-        <a href="javascript:showBox('submit')" class="nav-btn">我要投稿</a>
-    </div>
+    <!-- 多层风景远景 -->
+    <div class="hill-far"></div>
+    <div class="forest-main"></div>
+    <div class="grass-ground"></div>
 
-    <div class="box active" id="list">
-        <h3>精选作文分享</h3>
-        <div id="essayList"></div>
-    </div>
+    <!-- 顶部标语 -->
+    <div class="top-slogan">星光垂野 · 文藏林间</div>
 
-    <div class="box" id="submit">
-        <h3>投稿你的作文</h3>
-        <input type="text" id="titleInp" placeholder="请输入作文标题">
-        <input type="text" id="authorInp" placeholder="请输入作者姓名/班级">
-        <textarea id="contentInp" placeholder="请输入作文全文..."></textarea>
-        <button class="submit-btn" onclick="submitEssay()">提交投稿</button>
+    <!-- 文章介绍主体 -->
+    <div class="article-wrap">
+        <h1 class="article-title">星空林间随想</h1>
+        <div class="article-info">作者：佚名 &nbsp;&nbsp; 年级：初中作文 &nbsp;&nbsp; 类型：抒情写景</div>
+        <div class="article-content">
+            夜幕缓缓垂落，整片天地浸在温柔的蓝紫色光晕里。漫天星子错落散落，忽明忽暗，像撒落在墨色天幕上的碎玉，微光轻颤，静静俯瞰人间大地。远处层叠的山林连绵起伏，深浅不一的绿意层层晕开，茂密的林木簇拥相依，晚风掠过林间，捎来草木独有的清润气息。
+            <br><br>
+            近处草坪柔和铺展，与远方幽深的林子连成一片温柔的绿海。紫调夜空与浓绿山野相融，星光点点落在林间树梢，落在柔软草地，也落在心底安静的角落。没有喧嚣，没有纷扰，只剩星空静谧、山林葱郁，时光也仿佛在此刻慢慢放缓，只留清风、星光与满目青绿相伴。
+            <br><br>
+            心怀向往，便在这片星空与绿意之间，写下心底的思绪，留住晚风与星光赠予的温柔诗意。
+        </div>
     </div>
 
 <script>
-// ======================================
-// 免费云数据库 API（所有人在线共享）
-// ======================================
-const API = "https://api.jsonbin.io/v3/b/65f1f12a1f1b1d7486e2c336";
-const API_KEY = "$2b$10$LrM8cA1lM0QlH0GkG0QlH0";
-
-// MD5 加密
-function MD5(t){var i,r,n=[];function s(t,r){return t<<r|t>>>32-r}for(i=0;i<64;i++)n[i]=(Math.abs(Math.sin(i+1))*4294967296)|0;function o(t){var r=[];for(i=0;i<t.length;i++)r[i>>2]|=t.charCodeAt(i)<<(i%4)*8;return r}function e(t){var r="";for(i=0;i<4;i++)r+=(t>>>i*8&255).toString(16).padStart(2,"0");return r}t=unescape(encodeURIComponent(t));var h=o(t),c=[],a=1732584193,u=4023233417,d=2562383102,l=2717338784;h[t.length>>2]|=128<<(t.length%4)*8;h[15]=t.length*8;for(i=0;i<h.length;i+=16){var f=a,p=u,g=d,m=l;for(r=0;r<64;r++){var v,y,b,w;r<16?(v=a,u^d^l,y=r):r<32?(v=u,a&d|~a&l,y=(5*r+1)%16):r<48?(v=u,a^d^l,y=(3*r+5)%16):(v=u,d&a|~d&l,y=(7*r)%16),w=a+s(v+b+n[r],7),b=w&4294967295,a=l,l=d,d=u,u=b}a=a+s(f,0),u=u+s(p,0),d=d+s(g,0),l=l+s(m,0)}return(e(a)+e(u)+e(d)+e(l)).toLowerCase()}
-
-// 管理员密码（哈希）
-const ADMIN_HASH = MD5("admin123");
-let isAdmin = false;
-
-// ======================================
-// 云端加载所有作文
-// ======================================
-async function loadEssays() {
-  try {
-    let res = await fetch(API, { headers: { "X-Access-Key": API_KEY } });
-    let data = await res.json();
-    window.essays = data.record.essays || [];
-    window.ips = data.record.ips || [];
-    renderList();
-  } catch (e) {
-    window.essays = [];
-    window.ips = [];
-  }
+// 生成超多星星，大小、速度、位置随机，风景细节拉满
+const starBox = document.querySelector('.star-container');
+// 生成260颗星光，远超之前数量
+for(let i = 0; i < 260; i++){
+    let star = document.createElement('div');
+    star.classList.add('star');
+    // 大小分层
+    let size = Math.random() * 3.8 + 0.4;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    // 随机位置
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    // 随机闪烁时长
+    star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+    // 随机延迟
+    star.style.animationDelay = Math.random() * 3.5 + 's';
+    starBox.appendChild(star);
 }
-
-// ======================================
-// 云端保存
-// ======================================
-async function saveCloud() {
-  await fetch(API, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Access-Key": API_KEY
-    },
-    body: JSON.stringify({ essays: window.essays, ips: window.ips })
-  });
-}
-
-// ======================================
-// 投稿（在线保存）
-// ======================================
-async function submitEssay() {
-  let t = document.getElementById("titleInp").value.trim();
-  let a = document.getElementById("authorInp").value.trim();
-  let c = document.getElementById("contentInp").value.trim();
-  if (!t || !a || !c) return alert("请填写完整");
-  let ip = await (await fetch("https://api.ipify.org")).text();
-  window.essays.unshift({
-    id: Date.now(),
-    title: t,
-    author: a,
-    content: c,
-    time: new Date().toLocaleString(),
-    ip: ip
-  });
-  if (!window.ips.find(x => x.ip === ip)) {
-    window.ips.push({ ip, time: new Date().toLocaleString() });
-  }
-  await saveCloud();
-  alert("投稿成功！已在线保存！");
-  document.getElementById("titleInp").value = "";
-  document.getElementById("authorInp").value = "";
-  document.getElementById("contentInp").value = "";
-  showBox("list");
-  loadEssays();
-}
-
-// ======================================
-// 渲染列表
-// ======================================
-function renderList() {
-  let html = "";
-  window.essays.forEach(e => {
-    html += `
-    <div class="essay-item">
-      <strong>《${e.title}》</strong>
-      <p>作者：${e.author}　${e.time}</p>
-      <p style="margin-top:8px;">${e.content}</p>
-    </div><hr>`;
-  });
-  document.getElementById("essayList").innerHTML = html || "暂无投稿";
-}
-
-// ======================================
-// 页面切换
-// ======================================
-function showBox(id) {
-  document.querySelectorAll(".box").forEach(x => x.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
-
-window.admin = {
-  login(pwd) {
-    if (MD5(pwd) === ADMIN_HASH) {
-      isAdmin = true;
-      console.log("✅ 管理员登录成功");
-    } else console.log("❌ 密码错误");
-  },
-  essays() {
-    if (!isAdmin) return;
-    console.log("📝 所有作文", window.essays);
-  },
-  ips() {
-    if (!isAdmin) return;
-    console.log("🌐 访客IP", window.ips);
-  },
-  del(id) {
-    if (!isAdmin) return;
-    window.essays = window.essays.filter(x => x.id != id);
-    saveCloud();
-    loadEssays();
-    console.log("🗑️ 已删除");
-  }
-};
-
-// ======================================
-// 星空动画
-// ======================================
-const stars = document.querySelector(".stars-container");
-for (let i = 0; i < 150; i++) {
-  let s = document.createElement("div");
-  s.className = "star";
-  let size = Math.random() * 2.5 + 0.5;
-  s.style.width = s.style.height = size + "px";
-  s.style.left = Math.random() * 100 + "%";
-  s.style.top = Math.random() * 100 + "%";
-  s.style.animationDelay = Math.random() * 3 + "s";
-  stars.appendChild(s);
-}
-
-// 初始化
-loadEssays();
 </script>
 </body>
 </html>
